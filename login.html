@@ -10,30 +10,30 @@
 </head>
 <body id="login">
 
-         <div class="flex-container">
-            <div><a href="register.html" target="_blank">REGISTER</a></div>
-            <div><a href="note.html" target="_blank">NOTE</a></div>
-         </div>
          <header>
-            <h1>LOGIN HERE</h1>
+            <nav>
+               <ul>
+                 <li><a href="register.html" target="_blank">REGISTER</a></li>
+                 <li><div><a href="note.html" target="_blank">NOTE</a></div></li>
+                 
+               </ul>
+             </nav>
+             <h1>LOGIN PAGE</h1>
+            
          </header>
 
         <main>
-           
-            <table class="alltable">
-               <tr>
-                 <td>USERNAME : </td>
-                  <td><input type="text" name="user"></td>
-               </tr>      
-               <tr>
-                  <td>PASSWORD :</td>
-                  <td><input type="password" name="password"></td>
-               </tr>       
-               <tr>
-                  <td><input type="submit" name="submit" value="submit"></td>
-                  <td>New user?<a href="register.html" target="_blank">REGISER HERE</a></td>    
-               </tr>     
-            </table>
+         <div id="all_forms">
+            <form id="allforms">
+               <h2>ENTER YOUR DETAILS</h2>
+               <label for="username">USERNAME :</label>
+               <input type="text" id="username">
+               <br>
+               <label for="password">PASSWORD :</label>
+               <input type="password" id="password">
+               <br>
+               <input type="submit" value="submit">
+             </form>
             
         </main>   
         

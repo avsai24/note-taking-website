@@ -9,47 +9,53 @@
     <link rel="icon" href="../project/images/registerimg.png" type="image/icon">
 </head>
 <body id="register">
-
-    <div class="flex-container">
-        <div><a href="login.html">LOGIN</a></div>
-        <div><a href="note.html">NOTE</a></div>
+    <header>
+        <nav>
+            <ul>
+              <li><a href="login.html" target="_blank">LOGIN</a></li>
+              <li><div><a href="note.html" target="_blank">NOTE</a></div></li>
+              
+            </ul>
+          </nav>
+          <h1>REGISTER PAGE</h1>
        
-      </div>
+        </div>
+    </header>
     
     
-
-
-    <h1>REGISER HERE</h1>
     <main>
      
-         <table class="alltable">
-            <tr>
-              <td>First name: </td>
-               <td><input type="text" name="First_name"></td>
-            </tr>
-            <tr>
-                <td>Second name: </td>
-                 <td><input type="text" name="Second_name"></td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                 <td><input type="text" name="Email"></td>
-            </tr>        
-            <tr>
-                <td>Password: </td>
-                 <td><input type="password" name="password"></td>
-            </tr>   
-            <tr>
-                <td>DATE OF BIRTH: </td>
-                 <td><input type="date" name="dob"></td>
-            </tr>
+        <form id="allforms">
+            <h2>CREATE YOUR ACCOUNT</h2>
+            <label for="fname">FIRST NAME :</label>
+            <input type="text" id="fname">
+            <br>
+            <label for="lname">LAST NAME :</label>
+            <input type="text" id="lname">
+            <br>
+            <label for="email">EMAIL :</label>
+            <input type="email" id="email">
+            <br>
+            <label for="mnumber">MOBILE NUMBER :</label>
+            <input type="text" id="mnumber" maxlength="10">
+            <br>
+            <label for="password">PASSWORD :</label>
+            <input type="password" id="password">
+            <br>
+            <label for="cpassword">CONFIRM PASSWORD :</label>
+            <input type="password" id="Cpassword">
+            <br>
+            <label for="dob">ENTER DATE OF BIRTH :</label>
+            <input type="date" name="dob" id="dob">
+            <br>
+            <input type="checkbox">
+            <label for="checkbox">YOU ARE AGREE TO OUR TERMS AND CONDITIONS</label><br>
+            <input type="submit" value="submit">
             
-            <tr>
-                <td><input type="submit" value="submit"></td>
-                <td> Already a user?<a href="login.html">LOGIN</a></td>
-            </tr>      
+          </form>
+            
                 
-        </table>
+        
         
     </main>             
 
