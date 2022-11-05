@@ -1,66 +1,176 @@
-/*window.alert("welcome to my site!!!");
-document.querySelector('h1').style.color="yellow";
-/*......................................................................*/
-const noteForm = document.getElementById("note_form");
+const Login= document.getElementById("login_form");
+if(Login) Login.addEventListener('submit', loginForm);
 
-if(noteForm) noteForm.addEventListener('submit',displayNoteform);
-
-function displayNoteform(e){
+function loginForm(e){
     e.preventDefault();
-    let fname = document.getElementById("fname").value;
-    let lname = document.getElementById("lname").value;
-    let email = document.getElementById("email").value;
-    let mnumber = document.getElementById("mnumber").value;
-    let feedback = document.getElementById("feedback").value;
 
-    console.log(`First Name =${fname}`);
-    console.log(`Last Name =${lname}`);
-    console.log(`Email =${email}`);
-    console.log(`mnumber =${mnumber}`);
-    console.log(`feedback =${feedback}`);
+    let loginUsername = document.getElementById('username').value;
+    let loginPassword = document.getElementById('password').value;
 
+    class LoginForm{
+        constructor(username,password){
+            this.loginUsername = username;
+            this.loginPassword = password;
+        }
+
+        getUsername(){
+            return this.loginUsername;
+        }
+        getPassword(){
+            return this.loginPassword;
+        }
+        setUsername(UserName){
+            this.loginUsername = UserName;
+        }
+        setPassword(PassWord){
+            this.loginPassword = PassWord;
+        }
+
+    }
+    let LoginObj = new LoginForm(loginUsername, loginPassword);
+    console.log(LoginObj);
+    document.getElementById("login_form").reset();
 }
 
-/*.....................................................................*/
+/*....................................................*/
 
-const loginForm = document.getElementById("login_form");
+const Note = document.getElementById("note_form");
+if(Note) Note.addEventListener('submit', noteForm);
 
-if(loginForm) loginForm.addEventListener('submit',displayLoginform);
-
-function displayLoginform(e){
+function noteForm(e){
     e.preventDefault();
-    let Login_username = document.getElementById("uname").value;
-    let Login_password = document.getElementById("password").value;
+
+    let noteFname = document.getElementById('fname').value;
+    let noteLname = document.getElementById('lname').value;
+    let noteEmail = document.getElementById('email').value;
+    let noteMnumber = document.getElementById('mnumber').value;
+    let noteFeedback = document.getElementById('feedback').value;
+
+    class NoteForm{
+        constructor(fname,lname,email,mnumber,feedback){
+            this.noteFname = fname;
+            this.noteLname = lname;
+            this.noteEmail = email;
+            this.noteMnumber = mnumber;
+            this.noteFeedback = feedback;
+        }
+
+        getFirstname(){
+            return this.noteFname;
+        }
+        getLastname(){
+            return this.noteLname;
+        }
+        getEmail(){
+            return this.noteEmail;
+        }
+        getMnumber(){
+            return this.noteMnumber;
+        }
+        getFeedback(){
+            return this.noteFeedback;
+        }
+
+
+        setFirstname(FirstName){
+            this.noteFname = FirstName;
+        }
+        setLastname(LastName){
+            this.noteLname = LastName;
+        }
+        setEmail(Email){
+            this.noteEmail = Email;
+        }
+        setMnumber(MobileNumber){
+            this.noteMnumber = MobileNumber;
+        }
+        setFeedback(Feedback){
+            this.noteFeedback = Feedback;
+        }
+
+    }
+    let NoteObj = new NoteForm(noteFname,noteLname,noteEmail,noteMnumber,noteFeedback);
+    console.log(NoteObj);
+    document.getElementById("note_form").reset();
+}
+
+/*.................................................................*/
+
+const Register = document.getElementById("register_form");
+if(Register) Register.addEventListener('submit', RegisterForm);
+
+function RegisterForm(e){
+    e.preventDefault();
     
-    console.log(`User Name =${Login_username}`);
-    console.log(`Password =${Login_password}`);
 
+    let registerFname = document.getElementById('fname').value;
+    let registerLname = document.getElementById('lname').value;
+    let registerEmail = document.getElementById('email').value;
+    let registerMnumber = document.getElementById('mnumber').value;
+    let registerPassword = document.getElementById('password').value;
+    let registerCpassword = document.getElementById('Cpassword').value;
+    let registerDob = document.getElementById('dob').value;
+
+    class RegisterForm{
+        constructor(fname,lname,email,mnumber,password,Cpassword){
+            this.registerFname = fname;
+            this.registerLname = lname;
+            this.registerEmail = email;
+            this.registerMnumber = mnumber;
+            this.registerPassword = password;
+            this.registerCpassword = Cpassword;
+            this.registerDob = dob;
+        }
+
+        getFirstname(){
+            return this.registerFname;
+        }
+        getLastname(){
+            return this.registerLname;
+        }
+        getEmail(){
+            return this.registerEmail;
+        }
+        getMnumber(){
+            return this.registerMnumber;
+        }
+        getPassword(){
+            return this.registerPassword;
+        }
+        getCpassword(){
+            return this.registerCpassword;
+        }
+        getDob(){
+            return this.registerDob;
+        }
+            
+
+        setFirstname(FirstName){
+            this.registerFname = FirstName;
+        }
+        setLastname(LastName){
+            this.registerLname = LastName;
+        }
+        setEmail(Email){
+            this.registerEmail = Email;
+        }
+        setMnumber(MobileNumber){
+            this.registerMnumber = MobileNumber;
+        }
+        setPassword(PassWord){
+            this.registerPassword = PassWord;
+        }
+        setCpassword(CPassword){
+            this.registerCpassword = CPassword;
+        }
+        setDob(DOB){
+            this.registerDob = DOB;
+        }
+
+    }
+
+    let RegisterObj = new RegisterForm(registerFname,registerLname,registerEmail,registerMnumber,registerPassword,registerCpassword,registerDob);
+    console.log(RegisterObj);
+    document.getElementById("register_form").reset();
 }
 
-/*....................................................................*/
-
-const RegisterForm = document.getElementById("register_form");
-
-if(RegisterForm) RegisterForm.addEventListener('submit',displayRegisterform);
-
-function displayRegisterform(e){
-    e.preventDefault();
-    let Register_fname = document.getElementById("fname").value;
-    let Register_lname = document.getElementById("lname").value;
-    let Register_email = document.getElementById("email").value;
-    let Register_mnumber = document.getElementById("mnumber").value;
-    let Register_password = document.getElementById("password").value;
-    let Register_cpassword = document.getElementById("Cpassword").value;
-    let Register_dob = document.getElementById("dob").value;
-
-    console.log(`First Name =${Register_fname}`);
-    console.log(`Last Name =${Register_lname}`);
-    console.log(`Email =${Register_email}`);
-    console.log(`Mobile Number =${Register_mnumber}`);
-    console.log(`Password =${Register_password}`);
-    console.log(`Password =${Register_cpassword}`);
-    console.log(`Date Of Birth =${Register_dob}`);
-
-}
-
-/*....................................................................*/
