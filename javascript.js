@@ -62,3 +62,5 @@ function displayRegisterform(e){
     console.log(`Date Of Birth =${Register_dob}`);
 
 }
+
+/*....................................................................*/
