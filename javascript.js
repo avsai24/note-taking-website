@@ -110,9 +110,10 @@ function RegisterForm(e){
     let registerPassword = document.getElementById('password').value;
     let registerCpassword = document.getElementById('Cpassword').value;
     let registerDob = document.getElementById('dob').value;
+    document.getElementById('dob').innerHTML = registerDob;
 
     class RegisterForm{
-        constructor(fname,lname,email,mnumber,password,Cpassword){
+        constructor(fname,lname,email,mnumber,password,Cpassword,dob){
             this.registerFname = fname;
             this.registerLname = lname;
             this.registerEmail = email;
