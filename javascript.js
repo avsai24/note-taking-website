@@ -1,28 +1,23 @@
 class Allform{
-    constructor(username,password){
-        this.loginUsername = username;
-        this.loginPassword = password;
-    }
-    
-    /*constructor(fname,lname,email,mnumber,feedback){
-        this.noteFname = fname;
-        this.noteLname = lname;
-        this.noteEmail = email;
-        this.noteMnumber = mnumber;
-        this.noteFeedback = feedback;
-    }
+    constructor(loginUsername, loginPassword, noteFname, noteLname, noteEmail, noteMnumber, noteFeedback, registerFname,registerLname, registerEmail, registerMnumber, registerPassword, registerCpassword, registerDob  ){
+        this.loginUsername = loginUsername;
+        this.loginPassword = loginPassword;
+        
+        this.noteFname = noteFname;
+        this.noteLname = noteLname;
+        this.noteEmail = noteEmail;
+        this.noteMnumber = noteMnumber;
+        this.noteFeedback = noteFeedback;
 
-    constructor(fname,lname,email,mnumber,password,Cpassword,dob){
-        this.registerFname = fname;
-        this.registerLname = lname;
-        this.registerEmail = email;
-        this.registerMnumber = mnumber;
-        this.registerPassword = password;
-        this.registerCpassword = Cpassword;
-        this.registerDob = dob;
+        this.registerFname = registerFname;
+        this.registerLname = registerLname;
+        this.registerEmail = registerEmail;
+        this.registerMnumber = registerMnumber;
+        this.registerPassword = registerPassword;
+        this.registerCpassword = registerCpassword;
+        this.registerDob = registerDob;
     }
-    */
-
+       
     //getter method for login
 
     getLoginUsername(){
