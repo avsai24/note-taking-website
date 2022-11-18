@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 
-const loginRouter = require('./server/routes/loginrouter');
+const UserRouter = require('./server/routes/user');
+const NoteRouter = require('./server/routes/note');
 
 //cors middleware
 app.use(function(req, res, next){
@@ -11,13 +12,18 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use("/login", loginRouter);
+app.use("/users", UserRouter);
+app.use("/notes",NoteRouter);
 
 app.get('*', function (req, res){
     res.sendFile(path.resolve(__dirname, 'public', 'login.html'));
 });
+app.get('*', function (req, res){
+    res.sendFile(path.resolve(__dirname, 'public', 'note.html'));
+});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`server started on port ${PORT}!`));
-
 

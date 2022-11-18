@@ -1,69 +1,46 @@
-class Allform{
-    constructor(loginUsername, loginPassword, noteFname, noteLname, noteEmail, noteMnumber, noteFeedback, registerFname,registerLname, registerEmail, registerMnumber, registerPassword, registerCpassword, registerDob  ){
-        this.loginUsername = loginUsername;
-        this.loginPassword = loginPassword;
-        
-        this.noteFname = noteFname;
-        this.noteLname = noteLname;
-        this.noteEmail = noteEmail;
-        this.noteMnumber = noteMnumber;
-        this.noteFeedback = noteFeedback;
+const { rmSync } = require("fs");
+const { getUser } = require("../server/models/user");
 
-        this.registerFname = registerFname;
-        this.registerLname = registerLname;
-        this.registerEmail = registerEmail;
-        this.registerMnumber = registerMnumber;
-        this.registerPassword = registerPassword;
-        this.registerCpassword = registerCpassword;
-        this.registerDob = registerDob;
+class User{
+    constructor(Firstname, Lastname, Username, Mobilenumber, Password, Confirmpassword, Dob ){
+        this.Username = Username;
+        this.Password = Password;
+        
+        this.Firstname = Firstname;
+        this.Lastname =Lastname;
+        this.Username = Username;
+        this.Mobilenumber = Mobilenumber;
+        this.Password = Password;
+        this.Confirmpassword = Confirmpassword;
+        this.Dob = Dob;
     }
        
-    //getter method for login
 
-    getLoginUsername(){
-        return this.loginUsername;
+    getUsername(){
+        return this.Username;
     }
-    getLoginPassword(){
-        return this.loginPassword;
-    }
-
-    //getter method for note
-
-    getNoteFname(){
-        return this.noteFname;
-    }
-    getNoteLname(){
-        return this.noteLname;
-    }
-    getNoteEmail(){
-        return this.noteEmail;
-    }
-    getNoteMnumber(){
-        return this.noteMnumber;
-    }
-    getNoteFeedback(){
-        return this.noteFeedback;
+    getPassword(){
+        return this.Password;
     }
 
-    //getter method for register
-
-    getRegisterFname(){
-        return this.registerFname;
+    getFirstname(){
+        return this.Firstname;
     }
-    getRegisterLname(){
-        return this.registerLname;
+    getLastname(){
+        return this.Lastname;
     }
-    getRegisterEmail(){
-        return this.registerEmail;
+    getEmail(){
+        return this.Email;
     }
-    getRegisterMnumer(){
-        return this.registerMnumber;
+    getMobilenumber(){
+        return this.Mobilenumber;
     }
-    getRegisterPassword(){
-        return this.registerPassword;
+    
+    getConfirmpassword(){
+        return this.Confirmpassword;
     }
-    getRegisterCpassword(){
-        return this.registerCpassword;
+    getdob(){
+        return this.Dob;
     }
 
 }
@@ -74,28 +51,15 @@ if(Login) Login.addEventListener('submit', loginForm);
 function loginForm(e){
     e.preventDefault();
 
-    let loginUsername = document.getElementById('username').value;
-    let loginPassword = document.getElementById('password').value;
-    let LOGINobj = new Allform(loginUsername, loginPassword);
+    let Username = document.getElementById('username').value;
+    let Password = document.getElementById('password').value;
+    let LOGINobj = new User(Username, Password);
     console.log(LOGINobj);
     document.getElementById("login_form").reset();
 }
 
 const Note = document.getElementById("note_form");
 if(Note) Note.addEventListener('submit', noteForm);
-
-function noteForm(e){
-    e.preventDefault();
-
-    let noteFname = document.getElementById('fname').value;
-    let noteLname = document.getElementById('lname').value;
-    let noteEmail = document.getElementById('email').value;
-    let noteMnumber = document.getElementById('mnumber').value;
-    let noteFeedback = document.getElementById('feedback').value;
-    let NOTEobj = new Allform(noteFname, noteLname, noteEmail, noteMnumber, noteFeedback);
-    console.log(NOTEobj);
-    document.getElementById("note_form").reset();
-}
 
 const Register = document.getElementById("register_form");
 if(Register) Register.addEventListener('submit', RegisterForm);
@@ -104,15 +68,69 @@ function RegisterForm(e){
     e.preventDefault();
     
 
-    let registerFname = document.getElementById('fname').value;
-    let registerLname = document.getElementById('lname').value;
-    let registerEmail = document.getElementById('email').value;
-    let registerMnumber = document.getElementById('mnumber').value;
-    let registerPassword = document.getElementById('password').value;
-    let registerCpassword = document.getElementById('Cpassword').value;
-    let registerDob = document.getElementById('dob').value;
-    document.getElementById('dob').innerHTML = registerDob;
-    let REGISTERobj = new Allform(registerFname, registerLname, registerEmail, registerMnumber, registerPassword, registerCpassword, registerDob);
+    let Firstname = document.getElementById('fname').value;
+    let Lastname = document.getElementById('lname').value;
+    let Username = document.getElementById('email').value;
+    let Mobilenumber = document.getElementById('mnumber').value;
+    let Password = document.getElementById('password').value;
+    let Confirmpassword = document.getElementById('Cpassword').value;
+    let Dob = document.getElementById('dob').value;
+    document.getElementById('dob').innerHTML = Dob;
+    let REGISTERobj = new User(Firstname, Lastname, Username, Mobilenumber, Password, Confirmpassword, Dob);
     console.log(REGISTERobj);
     document.getElementById("register_form").reset();
+}
+
+
+class feedbackform{
+    constructor(Feedback){
+        this.Feedback = Feedback;
+    }
+    getFeedback(){
+        return this.Feedback;
+    }
+
+}
+
+
+function noteForm(e){
+    e.preventDefault();
+
+    let Firstname = document.getElementById('fname').value;
+    let Lastname = document.getElementById('lname').value;
+    let Email = document.getElementById('email').value;
+    let Mobilenumber = document.getElementById('mnumber').value;
+    let Feedback = document.getElementById('feedback').value;
+    let NOTEobj = new User(Firstname, Lastname, Email, Mobilenumber);
+    let feedbackobj = new feedbackform(Feedback);
+    console.log(NOTEobj);
+    console.log(feedbackobj);
+    document.getElementById("note_form").reset();
+}
+
+
+// button script
+const loginBtn = document.getElementById('btnlogin');
+loginBtn.addEventListener('click',getUser);
+
+function getUsers(e){
+    e.preventDefault();
+    if(loginBtn.innerText === ""){
+    fetch("https://localhost:3000/users")
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach( USER => {
+            let section = `
+            <div class = "user">
+                <h2>${USER.Username}</h2>
+                <h2>${USER.Password}</h2>
+            </div>
+        `
+        loginBtn.innerHTML+=section; 
+        })
+     })
+     .catch(err =>{
+        console.log(err);
+     })
+    }
 }
