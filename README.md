@@ -3,7 +3,7 @@
 ## It is a user friendly application.
 > Entity Diagram For The Project Is Given Below.
 
-![ER DIAGRAM](https://mylearning.suny.edu/content/enforced/28180-2022FA-NEW-CPS593-718/Screen%20Shot%202022-11-15%20at%2012.14.25%20PM.png?d2lSessionVal=8OAbFwSTtYtvJ2GV7QvQCkwhT&ou=28180)
+![ER DIAGRAM](../project/public/images/erdiagram.png)
 
 ### In this project, I created Three HTML pages :
  * Login Page
