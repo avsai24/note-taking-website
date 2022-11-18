@@ -3,7 +3,7 @@
 ## It is a user friendly application.
 > Entity Diagram For The Project Is Given Below.
 
-![ER DIAGRAM](../project/public/images/erdiagram.png)
+![ER DIAGRAM](/public/images/erdiagram.png)
 
 ### In this project, I created Three HTML pages :
  * Login Page
