@@ -4,7 +4,6 @@ const Userrouter = express.Router();
 
 Userrouter.get('/', async (req, res) => {
     try{
-        console.log("hi")
         const users= await User.getUser();
         res.send(users);
     } catch(err){

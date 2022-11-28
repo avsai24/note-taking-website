@@ -97,7 +97,7 @@ function noteForm(e){
 }
 
 
-// button script
+// login button script
 const loginBtn = document.getElementById('users');
 document.getElementById("btnlogin").addEventListener('click', getUsers);
 
@@ -123,5 +123,33 @@ function getUsers(e){
      })
     }
 }
-  
+
+
+/*
+// note button script
+const noteBtn = document.getElementById('notes');
+document.getElementById("btnnote").addEventListener('click', getNotes);
+
+function getNotes(e){
+    e.preventDefault();
+    if(noteBtn.innerText === ""){
+    fetch("http://localhost:3000/notes/")
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data)
+        data.forEach( NOTE => {
+            let section = `
+            <div class = "note">
+                <h2>${NOTE.feedback}</h2>
+            </div>
+        `
+        noteBtn.innerHTML+=section; 
+        })
+     })
+     .catch(err =>{
+        console.log(err);
+     })
+    }
+}
+*/  
 
