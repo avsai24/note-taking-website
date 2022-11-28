@@ -1,0 +1,24 @@
+{
+  "name": "final_project",
+  "version": "1.0.0",
+  "description": "it is a web application which contains login, register and note pages.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "login",
+    "register",
+    "note",
+    "user"
+  ],
+  "author": "venkatasai ancha",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
