@@ -104,14 +104,15 @@ document.getElementById("btnlogin").addEventListener('click', getUsers);
 function getUsers(e){
     e.preventDefault();
     if(loginBtn.innerText === ""){
-    fetch("https://localhost:3000/users/")
+    fetch("http://localhost:3000/users/")
     .then((res) => res.json())
     .then((data) => {
+        console.log(data)
         data.forEach( USER => {
             let section = `
             <div class = "user">
-                <h2>${USER.Username}</h2>
-                <h2>${USER.Password}</h2>
+                <h2>${USER.username}</h2>
+                <h2>${USER.password}</h2>
             </div>
         `
         loginBtn.innerHTML+=section; 

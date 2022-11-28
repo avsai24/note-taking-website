@@ -12,17 +12,17 @@ app.use(function(req, res, next){
     next();
 });
 
+
+
+// app.get('*', function (req, res){
+//     res.sendFile(path.resolve(__dirname, 'public', 'login.html'));
+// });
+// app.get('*', function (req, res){
+//     res.sendFile(path.resolve(__dirname, 'public', 'note.html'));
+// });
+
 app.use("/users", UserRouter);
 app.use("/notes",NoteRouter);
-
-app.get('*', function (req, res){
-    res.sendFile(path.resolve(__dirname, 'public', 'login.html'));
-});
-app.get('*', function (req, res){
-    res.sendFile(path.resolve(__dirname, 'public', 'note.html'));
-});
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`server started on port ${PORT}!`));
