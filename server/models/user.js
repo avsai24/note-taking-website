@@ -1,44 +1,75 @@
-const users = [
-    {
-        username : "anchavenkatasai0@gmail.com",
-        password : "Venkat@24",
-        firstname : "venkatasai",
-        mobilenumber : 4013767625,
-        password : "Venkat@24",
-        cpassword : "Venkat@24",
-        dob : "24/1/2000"
+const con = require("./db_connect");
 
-    },
-    {
-        username : "hitesh@gmail.com",
-        password : "Hitesh@4844",
-        fname : "hithesh",
-        lname : "medavarapu",
-        mnumber : 1234567890,
-        password : "Hitesh@4844",
-        cpassword : "Hitesh@4844",
-        dob : "01/01/2001"
-    },
-    {
-        username : "suryakiran@gmail.com",
-        password : "Surya@123",
-        firstname : "suryakiran",
-        lastname : "kattragadda",
-        mobilenumber : 7894561230,
-        password : "Surya@123",
-        cpassword : "Surya@123",
-        dob : "05/05/2000"
-    },
-];
+//creating table
+async function createTable() {
+  let sql=`CREATE TABLE IF NOT EXISTS users (
+    userID INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    mobileNumber INT NOT NULL,
+    confirmPassword VARCHAR(255) NOT NULL,
+    dateOfBirth DATE NOT NULL,
+    CONSTRAINT userPK PRIMARY KEY(userID)
+  ); `
+  await con.query(sql);
+}
+createTable();
 
-let getUser = () => users;
+// crud operations
 
-function login(username, password){
-    const user = users.filter((u) => u.username == username);
-    if(!user[0]) throw Error('User Not Found');
-    if(user[0].password !== password) throw Error('Password is incorrect.');
-
-    return user[0];
+// Read user
+async function userExists(username){
+  const sql = `SELECT * FROM users
+   WHERE username = "${username}"
+   `;
+  let u = await con.query(sql);
+  console.log(u);
+  return u;
 }
 
-module.exports = { getUser, login};
+async function login(username, password) {
+  const user = await userExists(username);
+  if(!user[0]) throw Error('user not found');
+  if(user[0].user_password != password) throw Error('password is incorrect');
+
+  return user[0];
+}
+
+//grabbig a user based on id or name
+
+async function getUser(user) {
+  let sql;
+  if(user.userId) {
+    sql = `SELECT * FROM users
+    WHERE USERNAME = "${user.username}"
+    `
+  }
+  return await con.query(sql);
+}
+
+// create user
+async function userExists(username){
+  const sql = `SELECT * FROM users
+   WHERE username = "${username}"
+   `;
+  let u = await con.query(sql);
+  console.log(u);
+  return u;
+}
+
+async function register(user) {
+  let cUser = await getUser(user.userName);
+  if(cUser.length > 0) throw Error("Username already in use");
+
+  const sql = `INSERT INTO users (userName, password)
+    VALUES ("${user.userName}", "${user.password}");
+  `;
+
+  const insert = await con.query(sql);
+  const newUser = await getUser(user);
+  return newUser[0];
+  
+}
+

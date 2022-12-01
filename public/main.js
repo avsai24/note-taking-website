@@ -111,7 +111,7 @@ function noteForm(e){
     document.getElementById("note_form").reset();
 }
 
-
+/*
 // login button script
 const loginBtn = document.getElementById('users');
 document.getElementById("btnlogin").addEventListener('click', getUsers);
@@ -138,7 +138,7 @@ function getUsers(e){
      })
     }
 }
-
+*/
 
 
 
