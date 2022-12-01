@@ -33,4 +33,12 @@ const users = [
 
 let getUser = () => users;
 
-module.exports = { getUser};
+function login(username, password){
+    const user = users.filter((u) => u.username == username);
+    if(!user[0]) throw Error('User Not Found');
+    if(user[0].password !== password) throw Error('Password is incorrect.');
+
+    return user[0];
+}
+
+module.exports = { getUser, login};
