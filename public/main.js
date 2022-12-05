@@ -1,144 +1,112 @@
 
-class User{
-    constructor(Firstname, Lastname, Username, Mobilenumber, Password, Confirmpassword, Dob ){
-        this.Username = Username;
-        this.Password = Password;
-        
-        this.Firstname = Firstname;
-        this.Lastname =Lastname;
-        this.Username = Username;
-        this.Mobilenumber = Mobilenumber;
-        this.Password = Password;
+// Fetch method implementation:
+async function fetchData(route = '', data = {}, methodType) {
+    const response = await fetch(`http://localhost:3000${route}`, {
+      method: methodType, // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    if(response.ok) {
+      return await response.json(); // parses JSON response into native JavaScript objects
+    } else {
+      throw await response.json();
+    }
+  }
+  
+  
+ class User{
+    constructor(userName, password , firstName, lastName, mobileNumber, Confirmpassword, dateOfBirth){
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
         this.Confirmpassword = Confirmpassword;
-        this.Dob = Dob;
-    }
-       
-
-    getUsername(){
-        return this.Username;
-    }
-    getPassword(){
-        return this.Password;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    getFirstname(){
-        return this.Firstname;
+    getuserName(){
+        return this.userName;
     }
-    getLastname(){
-        return this.Lastname;
+    getpassword(){
+        return this.password;
     }
-    getEmail(){
-        return this.Email;
+    getfirstName(){
+        return this.firstName;
     }
-    getMobilenumber(){
-        return this.Mobilenumber;
+    getlastName(){
+        return this.lastName;
     }
-    
+    getmobileNumber(){
+        return this.mobileNumber;
+    }
     getConfirmpassword(){
         return this.Confirmpassword;
     }
-    getdob(){
-        return this.Dob;
-    }
 
 }
 
+// grab the form, add event listener
 let Login= document.getElementById("login_form");
 if(Login) Login.addEventListener('submit', loginForm);
 
-function loginForm(e){
+function loginForm(e) {
     e.preventDefault();
-
-    let Username = document.getElementById('username').value;
-    let Password = document.getElementById('password').value;
-
-    //postdata
-    postData('https://localhost:3000/users/login', {username : Username, password : Password})
-    .then((data) => {
-        if(!data.message){
-            window.location.href = "login.html";
-        }
-    })
-    .catch((error) => {
-        const errText = error.message;
-        console.log(`Error! ${errText}`)
-    });
-
-
-
-    let LOGINobj = new User(Username, Password);
-    console.log(LOGINobj);
+    
+    let userName = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    
+    let login = new User(userName, password);
+    console.log(login);
     document.getElementById("login_form").reset();
 }
-
 
 let Register = document.getElementById("register_form");
 if(Register) Register.addEventListener('submit', RegisterForm);
 
 function RegisterForm(e){
     e.preventDefault();
-    
 
-    let Firstname = document.getElementById('fname').value;
-    let Lastname = document.getElementById('lname').value;
-    let Username = document.getElementById('email').value;
-    let Mobilenumber = document.getElementById('mnumber').value;
-    let Password = document.getElementById('password').value;
-    let Confirmpassword = document.getElementById('Cpassword').value;
-    let Dob = document.getElementById('dob').value;
-    document.getElementById('dob').innerHTML = Dob;
-    let REGISTERobj = new User(Firstname, Lastname, Username, Mobilenumber, Password, Confirmpassword, Dob);
-    console.log(REGISTERobj);
+    let firstName = document.getElementById("fname").value;
+    let lastName = document.getElementById("lname").value;
+    let userName = document.getElementById("email").value;
+    let mobileNumber = document.getElementById("mnumber").value;
+    let password = document.getElementById("password").value;
+    let Confirmpassword = document.getElementById("Cpassword").value;
+    let dateOfBirth = document.getElementById("dob").value;
+    document.getElementById('dob').innerHTML = dateOfBirth;
+
+    let register = new User(firstName, lastName, userName, mobileNumber, password, Confirmpassword, dateOfBirth);
+    console.log(register);
     document.getElementById("register_form").reset();
 }
 
-class feedbackform{
-    constructor(Feedback){
-        this.Feedback = Feedback;
-    }
-    getFeedback(){
-        return this.Feedback;
+class Note {
+    constructor(feedback){
+        this.feedback = feedback;
     }
 
+    getfeedback(){
+        return this.feedback;
+    }
 }
 
-function noteForm(e){
+let noteForm = document.getElementById("note_form");
+if(noteForm) noteForm.addEventListener('submit', note);
+
+function note(e){
     e.preventDefault();
 
-    let Feedback = document.getElementById('feedback').value;
-    let feedbackobj = new feedbackform(Feedback);
-    console.log(feedbackobj);
+    let feedback = document.getElementById("feedback").value;
+    let note = new Note(feedback);
+    console.log(note);
     document.getElementById("note_form").reset();
 }
-
-/*
-// login button script
-const loginBtn = document.getElementById('users');
-document.getElementById("btnlogin").addEventListener('click', getUsers);
-
-function getUsers(e){
-    e.preventDefault();
-    if(loginBtn.innerText === ""){
-    fetch("http://localhost:3000/users/")
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data)
-        data.forEach( USER => {
-            let section = `
-            <div class = "user">
-                <h2>${USER.username}</h2>
-                <h2>${USER.password}</h2>
-            </div>
-        `
-        loginBtn.innerHTML+=section; 
-        })
-     })
-     .catch(err =>{
-        console.log(err);
-     })
-    }
-}
-*/
-
-
 

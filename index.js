@@ -16,13 +16,14 @@ app.use(function(req, res, next){
 
 app.use(express.json());  //json bodies
 
-
+/*
 app.get('*', function (req, res){
      res.sendFile(path.resolve(__dirname, 'public', 'login.html'));
  });
  app.get('*', function (req, res){
      res.sendFile(path.resolve(__dirname, 'public', 'note.html'));
  });
+*/
 
 app.use("/users", UserRouter);
 app.use("/notes",NoteRouter);
