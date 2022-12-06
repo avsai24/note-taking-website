@@ -2,6 +2,7 @@ require('dotenv').config(); //dotenv config
 
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const UserRouter = require('./server/routes/user');
 const NoteRouter = require('./server/routes/note');
@@ -16,14 +17,10 @@ app.use(function(req, res, next){
 
 app.use(express.json());  //json bodies
 
-/*
-app.get('*', function (req, res){
-     res.sendFile(path.resolve(__dirname, 'public', 'login.html'));
- });
- app.get('*', function (req, res){
-     res.sendFile(path.resolve(__dirname, 'public', 'note.html'));
- });
-*/
+app.use(express.static(__dirname + "/public"));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, "/public/login.html")));
+
+ 
 
 app.use("/users", UserRouter);
 app.use("/notes",NoteRouter);

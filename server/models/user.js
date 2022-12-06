@@ -8,10 +8,10 @@ async function createTable() {
     password VARCHAR(255) NOT NULL,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
-    mobileNumber INT NOT NULL,
-    dateOfBirth DATE NOT NULL,
-    CONSTRAINT userPK PRIMARY KEY(userID)
-  ); `
+    mobileNumber BIGINT NOT NULL,
+    
+    CONSTRAINT userPK PRIMARY KEY (userID)
+    ); `
   await con.query(sql);
 }
 createTable();
@@ -28,17 +28,18 @@ async function getAllUsers() {
 async function register(user) {
   let cUser = await getUser(user);
   if(cUser.length > 0) throw Error("Username already in use");
-
-  const sql = `INSERT INTO users (username, password, firstName, lastName, mobileNumber, dateOfBirth)
-    VALUES ("${user.username}", "${user.password}", "${user.firstName}", "${user.lastName}", "${user.mobileNumber}", "${user.dateOfBirth}");
+  const sql = `INSERT INTO users (userName, password, firstName, lastName, mobileNumber)
+    VALUES ("${user.username}", "${user.password}", "${user.firstName}", "${user.lastName}", ${user.mobileNumber});
   `
   await con.query(sql);
   return await login(user);
 }
 
 // Read User -- login user
-async function login(user) { // {userName: "sda", password: "gsdhjsga"}
-  let cUser = await getUser(user); //[{userName: "cathy123", password: "icecream"}]
+async function login(user) {
+  
+ 
+  let cUser = await getUser(user);
   
   if(!cUser[0]) throw Error("Username not found");
   if(cUser[0].password !== user.password) throw Error("Password incorrect");
@@ -58,6 +59,7 @@ async function editUser(user) {
   return updatedUser[0];
 }
 
+//deleting user function
 async function deleteUser(user) {
   let sql = `DELETE FROM users
     WHERE userID = ${user.userID}
@@ -67,6 +69,8 @@ async function deleteUser(user) {
 
 // Useful Functions
 async function getUser(user) {
+  
+
   let sql;
 
   if(user.userID) {
@@ -77,7 +81,7 @@ async function getUser(user) {
   } else {
     sql = `
     SELECT * FROM users 
-      WHERE userName = "${user.userName}"
+      WHERE userName = "${user.username}"
   `;
   }
   return await con.query(sql);  

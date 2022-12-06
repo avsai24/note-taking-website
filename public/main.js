@@ -22,14 +22,13 @@ async function fetchData(route = '', data = {}, methodType) {
   
   
  class User{
-    constructor(userName, password , firstName, lastName, mobileNumber, Confirmpassword, dateOfBirth){
+    constructor(userName, password , firstName, lastName, mobileNumber){
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mobileNumber = mobileNumber;
-        this.Confirmpassword = Confirmpassword;
-        this.dateOfBirth = dateOfBirth;
+        this.mobileNumber = mobileNumber
+        
     }
 
     getuserName(){
@@ -47,13 +46,11 @@ async function fetchData(route = '', data = {}, methodType) {
     getmobileNumber(){
         return this.mobileNumber;
     }
-    getConfirmpassword(){
-        return this.Confirmpassword;
-    }
+    
 
 }
 
-// grab the form, add event listener
+// login functionality
 let Login= document.getElementById("login_form");
 if(Login) Login.addEventListener('submit', loginForm);
 
@@ -64,10 +61,22 @@ function loginForm(e) {
     let password = document.getElementById("password").value;
     
     let login = new User(userName, password);
-    console.log(login);
+
+    fetchData("/users/login", login , "POST")
+     .then((data) => {
+     console.log(data);
+     window.location.href = "note.html";
+  })
+    .catch((err) => {
+     console.log(`Error!!! ${err.message}`)
+  }) 
+    
+  console.log(login);
     document.getElementById("login_form").reset();
 }
 
+
+//register functionality
 let Register = document.getElementById("register_form");
 if(Register) Register.addEventListener('submit', RegisterForm);
 
@@ -79,12 +88,18 @@ function RegisterForm(e){
     let userName = document.getElementById("email").value;
     let mobileNumber = document.getElementById("mnumber").value;
     let password = document.getElementById("password").value;
-    let Confirmpassword = document.getElementById("Cpassword").value;
-    let dateOfBirth = document.getElementById("dob").value;
-    document.getElementById('dob').innerHTML = dateOfBirth;
 
-    let register = new User(firstName, lastName, userName, mobileNumber, password, Confirmpassword, dateOfBirth);
-    console.log(register);
+    let register = new User(firstName, lastName, userName, mobileNumber, password);
+    
+    fetchData("/users/register", register, "POST")
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((err) => {
+        console.log(err);
+
+    })
+    
     document.getElementById("register_form").reset();
 }
 
