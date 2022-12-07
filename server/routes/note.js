@@ -12,7 +12,7 @@ Noterouter
     }
 })
 
-    .post('/note', async (req, res) => {
+    .post('/create', async (req, res) => {
         try{
             let note = await Note.createNote(req.body);
             res.send({note})

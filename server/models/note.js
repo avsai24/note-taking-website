@@ -27,13 +27,11 @@ async function createNote(note){
 }
 
 //grabbing all notes in database
-async function getAllnotes(userID){
-    const sql = `SELECT * FROM notes
-        where userID = ${userID};`;
+async function getAllNotes() {
+    const sql = `SELECT * FROM notes;`;
     let notes = await con.query(sql);
-    return notes;
+    console.log(notes)
 }
-
 //updating feedback
 async function editNote(note){
     let sql = `UPDATE notes
@@ -57,14 +55,14 @@ async function deleteNote(note){
 
 //useful function
 async function getNote(note) {
-if(note.noteID) {
-    sql = `
-      SELECT * FROM notes
-       WHERE userID = ${note.noteID}
-    `
-  
+    let sql;
+    if(note.noteID) {
+      sql = `
+        SELECT * FROM notes
+         WHERE noteID = ${note.noteID}
+      `;
+    }
+    return await con.query(sql);  
   }
-  return await con.query(sql);  
-}
 
-exports = {  getAllnotes, createNote, editNote, deleteNote}
+exports = {createNote, getAllNotes, editNote, deleteNote}
