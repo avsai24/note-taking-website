@@ -24,6 +24,7 @@ async function createNote(note){
     VALUES ("${note.feedback}", ${note.userID});`
 
     await con.query(sql);
+    return await createNote[0];
 }
 
 //grabbing all notes in database

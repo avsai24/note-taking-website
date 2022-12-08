@@ -7,6 +7,11 @@ const path = require('path');
 const UserRouter = require('./server/routes/user');
 const NoteRouter = require('./server/routes/note');
 
+app.use(express.json());  //json bodies
+
+app.use(express.static(__dirname + "/public"));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, "/public/note.html")));
+
 //cors middleware
 app.use(function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");

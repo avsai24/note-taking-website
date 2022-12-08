@@ -92,13 +92,13 @@ function RegisterForm(e){
     let register = new User(firstName, lastName, userName, mobileNumber, password);
     
     fetchData("/users/register", register, "POST")
-    .then((data) => {
-        console.log(data);
-    })
-    .catch((err) => {
-        console.log(err);
-
-    })
+        .then((data) => {
+        setCurrentUser(data);
+        window.location.href = "note.html";
+     })
+    .catch((err) =>{
+         console.log(err);
+     })
     
     document.getElementById("register_form").reset();
 }
@@ -125,3 +125,20 @@ function note(e){
     document.getElementById("note_form").reset();
 }
 
+
+// stateful mechanism for user
+// logging in a user
+function setCurrentUser(user) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+// getting current user function
+// FIX this next class
+function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+// logout function for current user
+function removeCurrentUser() {
+  localStorage.removeItem('user')
+}
