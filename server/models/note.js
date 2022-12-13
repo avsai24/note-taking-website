@@ -1,7 +1,6 @@
 const con = require("./db_connect");
 
 //creating table for note
-
 async function createTable() {
     let sql=`CREATE TABLE IF NOT EXISTS notes (
         noteID INT NOT NULL AUTO_INCREMENT,
@@ -16,7 +15,6 @@ async function createTable() {
   createTable();
   
 //crud operations
-
 
 //create a feedback
 async function createNote(note){
@@ -35,6 +33,7 @@ async function getAllNotes() {
     let notes = await con.query(sql);
     console.log(notes)
 }
+
 //updating feedback
 async function editNote(note){
     let sql = `UPDATE notes
@@ -54,7 +53,6 @@ async function deleteNote(note){
      `
      await con.query(sql);
 }
-
 
 //useful function
 async function getNote(note) {

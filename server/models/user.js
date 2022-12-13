@@ -25,6 +25,7 @@ async function getAllUsers() {
   console.log(users)
 }
 
+//register function
 async function register(user) {
   let cUser = await getUser(user);
   if(cUser.length > 0) throw Error("Username already in use");
@@ -48,7 +49,7 @@ async function login(user) {
   return cUser[0];
 }
 
-// Update User function
+//Update User function
 async function editUser(user) {
   let sql = `UPDATE users 
     SET userName = "${user.userName}"
@@ -68,7 +69,7 @@ async function deleteUser(user) {
   await con.query(sql);
 }
 
-// Useful Functions
+//Useful Functions
 async function getUser(user) {
   
 

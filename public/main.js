@@ -1,7 +1,8 @@
 
 import { fetchData, setCurrentUser, setCurrentNote, getCurrentUser } from './fetch.js'
 
-  
+ //user class :
+
  class User{
     constructor(userName, password , firstName, lastName, mobileNumber){
         this.userName = userName;
@@ -87,6 +88,8 @@ function RegisterForm(e){
     document.getElementById("register_form").reset();
 }
 
+//note class:
+
 class Note {
     constructor(feedback){
         this.feedback = feedback;
@@ -121,11 +124,12 @@ function note(e){
     window.location.href = "note.html";
     document.getElementById("note_form").reset();
 }
+
+//function to show feedbacks based on userID in webpage
 let user = getCurrentUser();
 if(user && noteForm) getNotes();
 
-
- function getNotes(){
+function getNotes(){
     let user = getCurrentUser();
      fetchData("/notes/", user,"post")
      .then((data)=>{
@@ -141,7 +145,6 @@ if(user && noteForm) getNotes();
      })
      .catch((err)=>console.log(`Error! ${err}`));
 
-     //window.location.href="note.html";
  }
 
 

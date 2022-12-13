@@ -18,7 +18,6 @@ if(getCurrentUser()) {
   `
 }
 
-
 // Fetch method implementation:
 export async function fetchData(route = '', data = {}, methodType) {
     const response = await fetch(`http://localhost:3000${route}`, {
@@ -54,13 +53,14 @@ export async function fetchData(route = '', data = {}, methodType) {
   export function getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
-  
+
   // logout function for current user
   export function removeCurrentUser() {
     localStorage.removeItem('user');
     window.location.href = "login.html";
   }
   
+  //creating a feedback
   export function setCurrentNote(note) {
     localStorage.setItem('note', JSON.stringify(note));
   }
