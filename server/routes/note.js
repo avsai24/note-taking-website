@@ -3,7 +3,7 @@ const Note = require('../models/note');
 const Noterouter = express.Router();
 
 Noterouter
-    .get('/', async (req, res) =>{
+    .post('/', async (req, res) =>{
     try{
         const notes = await Note.getNote(req.body);
         res.send(notes);

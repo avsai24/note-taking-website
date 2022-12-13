@@ -96,7 +96,7 @@ class Note {
         return this.feedback;
     }
 }
-let user = getCurrentUser();
+
 let noteForm = document.getElementById("note_form");
 if(noteForm) noteForm.addEventListener('submit', note);
 
@@ -121,6 +121,27 @@ function note(e){
     window.location.href = "note.html";
     document.getElementById("note_form").reset();
 }
+let user = getCurrentUser();
+if(user && noteForm) getNotes();
 
+
+ function getNotes(){
+    let user = getCurrentUser();
+     fetchData("/notes/", user,"post")
+     .then((data)=>{
+         let ul=document.getElementById("allNotes");
+
+         data.forEach((note)=>{
+             let li=document.createElement('li');
+             let text=document.createTextNode(note.feedback);
+             li.appendChild(text);
+             ul.appendChild(li);
+
+         })
+     })
+     .catch((err)=>console.log(`Error! ${err}`));
+
+     //window.location.href="note.html";
+ }
 
 
