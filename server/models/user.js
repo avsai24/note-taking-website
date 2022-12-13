@@ -28,8 +28,9 @@ async function getAllUsers() {
 async function register(user) {
   let cUser = await getUser(user);
   if(cUser.length > 0) throw Error("Username already in use");
+  
   const sql = `INSERT INTO users (userName, password, firstName, lastName, mobileNumber)
-    VALUES ("${user.username}", "${user.password}", "${user.firstName}", "${user.lastName}", ${user.mobileNumber});
+    VALUES ("${user.userName}", "${user.password}", "${user.firstName}", "${user.lastName}", ${user.mobileNumber});
   `
   await con.query(sql);
   return await login(user);
@@ -81,11 +82,12 @@ async function getUser(user) {
   } else {
     sql = `
     SELECT * FROM users 
-      WHERE userName = "${user.username}"
+      WHERE userName = "${user.userName}"
   `;
   }
   return await con.query(sql);  
 }
+
 
 
 module.exports = { getAllUsers, login, register, editUser, deleteUser}; 

@@ -5,7 +5,7 @@ const Noterouter = express.Router();
 Noterouter
     .get('/', async (req, res) =>{
     try{
-        const notes = await Note.getAllnote();
+        const notes = await Note.getNote(req.body);
         res.send(notes);
     } catch(err){
         res.status(401).send({message: err.message});
@@ -15,7 +15,7 @@ Noterouter
     .post('/create', async (req, res) => {
         try{
             let note = await Note.createNote(req.body);
-            res.send({note})
+            res.send({...note});
         } catch(err){
             res.status(401).send({message: err.message});
         }
@@ -23,8 +23,8 @@ Noterouter
 
     .put('/edit', async (req, res) => {
         try {
-          let note = await note.editNote(req.body);
-          res.send({note});
+          let note = await Note.editNote(req.body);
+          res.send({...note});
         } catch(err) {
           res.status(401).send({message: err.message})
         }

@@ -1,25 +1,6 @@
 
-// Fetch method implementation:
-async function fetchData(route = '', data = {}, methodType) {
-    const response = await fetch(`http://localhost:3000${route}`, {
-      method: methodType, // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    if(response.ok) {
-      return await response.json(); // parses JSON response into native JavaScript objects
-    } else {
-      throw await response.json();
-    }
-  }
-  
+import { fetchData, setCurrentUser, setCurrentNote, getCurrentUser } from './fetch.js'
+
   
  class User{
     constructor(userName, password , firstName, lastName, mobileNumber){
@@ -60,18 +41,19 @@ function loginForm(e) {
     let userName = document.getElementById("username").value;
     let password = document.getElementById("password").value;
     
-    let login = new User(userName, password);
+    let user = new User(userName, password);
 
-    fetchData("/users/login", login , "POST")
+    fetchData("/users/login", user , "POST")
      .then((data) => {
      console.log(data);
      window.location.href = "note.html";
   })
     .catch((err) => {
-     console.log(`Error!!! ${err.message}`)
+      let p = document.querySelector('.error');
+      p.innerHTML = err.message;
   }) 
     
-  console.log(login);
+  
     document.getElementById("login_form").reset();
 }
 
@@ -89,17 +71,19 @@ function RegisterForm(e){
     let mobileNumber = document.getElementById("mnumber").value;
     let password = document.getElementById("password").value;
 
-    let register = new User(firstName, lastName, userName, mobileNumber, password);
+    let user = new User(userName, password, firstName, lastName, mobileNumber);
     
-    fetchData("/users/register", register, "POST")
+    fetchData("/users/register", user, "POST")
         .then((data) => {
         setCurrentUser(data);
         window.location.href = "note.html";
      })
     .catch((err) =>{
-         console.log(err);
+        let p = document.querySelector('.error');
+        p.innerHTML = err.message;
      })
     
+   
     document.getElementById("register_form").reset();
 }
 
@@ -112,33 +96,31 @@ class Note {
         return this.feedback;
     }
 }
-
+let user = getCurrentUser();
 let noteForm = document.getElementById("note_form");
 if(noteForm) noteForm.addEventListener('submit', note);
+
 
 function note(e){
     e.preventDefault();
 
     let feedback = document.getElementById("feedback").value;
     let note = new Note(feedback);
-    console.log(note);
+    console.log(note); 
+    let user = getCurrentUser();
+    note.userID = user.userID;
+    fetchData("/notes/create", note, "POST")
+        .then((data) => {
+        setCurrentNote(data);
+        window.location.href = "note.html";
+     })
+    .catch((err) =>{
+        let p = document.querySelector('.error');
+        p.innerHTML = err.message;
+     })
+    window.location.href = "note.html";
     document.getElementById("note_form").reset();
 }
 
 
-// stateful mechanism for user
-// logging in a user
-function setCurrentUser(user) {
-  localStorage.setItem('user', JSON.stringify(user));
-}
 
-// getting current user function
-// FIX this next class
-function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user'));
-}
-
-// logout function for current user
-function removeCurrentUser() {
-  localStorage.removeItem('user')
-}

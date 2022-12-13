@@ -7,7 +7,7 @@ async function createTable() {
         noteID INT NOT NULL AUTO_INCREMENT,
         feedback VARCHAR(1000) NOT NULL,
         userID INT NOT NULL,
-        CONSTRAINT  note_PK PRIMARY KEY (noteID),
+        CONSTRAINT  notePK PRIMARY KEY (noteID),
         CONSTRAINT note_FK FOREIGN KEY (userID) REFERENCES users(userID)
 
     ); `
@@ -20,11 +20,13 @@ async function createTable() {
 
 //create a feedback
 async function createNote(note){
+
+  //let create =await getNote(note);
     const sql =`INSERT INTO notes(feedback, userID)
     VALUES ("${note.feedback}", ${note.userID});`
-
+ 
     await con.query(sql);
-    return await createNote[0];
+  
 }
 
 //grabbing all notes in database
@@ -57,13 +59,16 @@ async function deleteNote(note){
 //useful function
 async function getNote(note) {
     let sql;
-    if(note.noteID) {
+    if(note.userID) {
       sql = `
         SELECT * FROM notes
-         WHERE noteID = ${note.noteID}
+         WHERE userID = ${note.userID};
       `;
+    }
+    else{
+      sql = `select * from notes where noteID = ${note.noteID}`;
     }
     return await con.query(sql);  
   }
 
-exports = {createNote, getAllNotes, editNote, deleteNote}
+module.exports = {createNote, getNote, editNote, deleteNote, getAllNotes}
