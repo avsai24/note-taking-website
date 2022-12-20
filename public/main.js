@@ -46,12 +46,13 @@ function loginForm(e) {
 
     fetchData("/users/login", user , "POST")
      .then((data) => {
-     console.log(data);
+    setCurrentUser(data);
      window.location.href = "note.html";
   })
     .catch((err) => {
-      let p = document.querySelector('.error');
-      p.innerHTML = err.message;
+        let p = document.querySelector('.error');
+        p.innerHTML = err.message;
+        console.log(`Error!!! ${err.message}`)
   }) 
     
   
